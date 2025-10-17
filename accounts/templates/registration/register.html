@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<div class="p-3 mb-4 border rounded-3" style="background-color: #ffe6f2;">
+    <div class="container-fluid py-4">
+        <h1 class="display-4" style="color: #b30070; font-weight: 600;">
+            join the learning fun 🎀✩⋆
+        </h1>
+        <p class="lead" style="color: #4a4a4a;">
+            create your account and start tracking your topics and entries today!
+        </p>
+    </div>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container col-md-6 mx-auto">
+    <form action="{% url 'accounts:register' %}" method="post" class="p-4 border rounded-3" style="background-color: #fff0f7;">
+        {% csrf_token %}
+        {{ form.as_div }}
+
+        <button type="submit" class="btn btn-pink btn-lg mt-3 w-100">
+            register
+        </button>
+    </form>
+</div>
+{% endblock content %}

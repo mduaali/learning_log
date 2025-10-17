@@ -1,0 +1,38 @@
+{% extends 'learning_logs/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+<div class="p-3 mb-4 border rounded-3" style="background-color: #ffe6f2;">
+    <div class="container-fluid py-4">
+        <h1 class="display-3" style="
+            color: #b30070;  /* match homepage pink */
+            font-weight: 600;
+            letter-spacing: 1px;
+        ">
+            log in to your account ‧₊˚✩ ₊˚💻⊹♡
+        </h1>
+    </div>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="card p-4 rounded-3 shadow-sm" style="background-color: #fff0f5;">
+    <form action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='vertical' %}
+        {% bootstrap_button button_type="submit" content="log in" button_class="btn-pink w-100" %}
+    </form>
+</div>
+
+<style>
+.btn-pink {
+    background-color: #b30070;  /* match pink theme */
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
+.btn-pink:hover {
+    background-color: #cc007f; /* slightly lighter on hover */
+}
+</style>
+{% endblock content %}

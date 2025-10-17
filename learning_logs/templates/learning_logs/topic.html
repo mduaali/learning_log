@@ -1,0 +1,58 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+<h1>{{ topic.text }}</h1>
+{% endblock page_header %}
+
+{% block content %}
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" 
+       class="btn btn-sm" 
+       style="background-color: #ff99cc; color: white; border-radius: 6px;">
+       + add new entry
+    </a>
+</p>
+
+{% for entry in entries %}
+<div class="card mb-3 shadow-sm" style="border-radius: 12px; transition: transform 0.2s;">
+    <!-- Card header with timestamp, edit link, and delete button -->
+    <h4 class="card-header d-flex justify-content-between align-items-center">
+        <span>{{ entry.date_added|date:"M d, Y H:i" }}</span>
+        <span>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}" 
+               class="me-2" 
+               style="text-decoration: none; color: #b30070;">edit</a>
+            <a href="{% url 'learning_logs:delete_entry' entry.id %}" 
+               class="btn btn-sm" 
+               style="background-color: #ff99cc; color: white; border-radius: 6px;">
+               delete
+            </a>
+        </span>
+    </h4>
+
+    <!-- Card body with entry text -->
+    <div class="card-body">
+        {{ entry.text|linebreaks }}
+        {% if entry.tags %}
+        <p class="mt-2" style="font-size: 0.9rem; color: #b30070;">
+            tags: 
+            {% for tag in entry.tags.split(',') %}
+                <span class="badge rounded-pill" style="background-color: #ff99cc; color: white; margin-right: 4px;">
+                    {{ tag|trim }}
+                </span>
+            {% endfor %}
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+<p>there are no entries for this topic yet.</p>
+{% endfor %}
+
+<!-- Optional hover effect -->
+<style>
+.card:hover {
+    transform: translateY(-3px);
+}
+</style>
+{% endblock content %}

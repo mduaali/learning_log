@@ -1,0 +1,40 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+<h2 style="color: #b30070;">delete topic? ⌫✎⋆˚</h2>
+{% endblock page_header %}
+
+{% block content %}
+<p>are you sure you want to delete the topic: <strong>{{ topic.text }}</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn delete-btn">yes, delete</button>
+    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn cancel-btn">cancel</a>
+</form>
+
+<style>
+.btn.delete-btn {
+    background-color: #ff99cc;
+    color: white;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+.btn.delete-btn:hover {
+    transform: translateY(-3px);
+    background-color: #ff66aa;
+}
+
+.btn.cancel-btn {
+    border-radius: 8px;
+    border: 1px solid #b30070;
+    color: #b30070;
+    background-color: #fff0f5;
+    transition: transform 0.2s;
+}
+.btn.cancel-btn:hover {
+    transform: translateY(-3px);
+    background-color: #ffe6f2;
+}
+</style>
+{% endblock content %}

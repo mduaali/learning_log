@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>learning log</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <style>
+        /* Global theme colors */
+        body {
+            background-color: #ffe6f2; /* light rosy pink */
+            color: #4a4a4a; /* soft dark text */
+        }
+
+        .navbar {
+            background-color: #ff99cc; /* medium pink navbar */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #b30070 !important; /* richer pink text */
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #e6009e !important; /* slightly darker pink on hover */
+            text-decoration: underline;
+        }
+
+        .btn-pink {
+            background-color: #ff66b3;
+            color: #fff;
+            border: 1px solid #e60099;
+        }
+
+        .btn-pink:hover {
+            background-color: #e60099;
+            color: #fff;
+        }
+
+        .card {
+            border-radius: 0.75rem;
+            border: 1px solid #ff80bf;
+            background-color: #ffd6ec; /* slightly stronger pink than before */
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #ff80bf;
+            color: #660033;
+            font-weight: 500;
+        }
+
+        a {
+            color: #b30070;
+        }
+
+        a:hover {
+            color: #e6009e;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md mb-4 border">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">learning log</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'learning_logs:topics' %}">topics</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="navbar-text me-2">hello, {{ request.user.username }}!</span>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:register' %}">register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:login' %}">log in</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'accounts:logout' %}" method="post" class="ms-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-pink btn-sm">logout</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+        </div>
+
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+</body>
+</html>

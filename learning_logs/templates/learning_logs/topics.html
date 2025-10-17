@@ -1,0 +1,66 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+    <h1 class="display-4" style="color: #d63384; font-weight: 600;">your topics 🎧ྀི☕📝</h1>
+    <p class="lead" style="color: #495057; font-weight: 600;">
+        keep track of the topics you're learning. click a topic to see or add entries.
+    </p>
+{% endblock page_header %}
+
+{% block content %}
+<!-- search bar -->
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="search topics...">
+        <button type="submit" class="btn btn-pink">search</button>
+    </div>
+</form>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for topic in topics %}
+    <div class="col">
+        <div class="card h-100 shadow-sm" style="background-color: #ffe6f2; border-radius: 12px; transition: transform 0.2s;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="card-title mb-0" style="font-weight: 600;">
+                        <a href="{% url 'learning_logs:topic' topic.id %}" style="color: #b30070; text-decoration: none;">
+                            {{ topic.text }}
+                        </a>
+                    </h5>
+                    <!-- delete button -->
+                    <a href="{% url 'learning_logs:delete_topic' topic.id %}" 
+                       class="btn btn-sm"
+                       style="background-color: #ff99cc; color: white; border-radius: 6px;">
+                       delete
+                    </a>
+                </div>
+                <p class="card-text mt-2" style="color: #6c757d; font-weight: 500;">
+                    Created on: {{ topic.date_added|date:"M d, Y" }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <div class="card h-100 shadow-sm" style="background-color: #ffe6f2; border-radius: 12px;">
+            <div class="card-body">
+                <p class="card-text text-center" style="color: #b30070; font-weight: 600;">no topics have been added yet.</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-lg" style="background-color: #ff99cc; color: white; border-radius: 8px; font-weight: 600;">
+        + add a new topic
+    </a>
+</div>
+
+<!-- Optional hover effect -->
+<style>
+.card:hover {
+    transform: translateY(-5px);
+}
+</style>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+<div class="p-3 mb-4 border rounded-3" style="background-color: #ffe6f2;">
+    <div class="container-fluid py-4">
+        <h1 class="display-3" style="color: #b30070; font-weight: 600;">
+            track learning simply 🎀༘⋆✩₊˚👩🏻‍💻⊹♡
+        </h1>
+
+        <p class="lead" style="color: #4a4a4a;">
+            cognitive science shows that recording your learning improves long-term memory and understanding. 
+            document your topics, summarize discoveries, and make every study session count.
+        </p>
+
+        <a class="btn btn-pink btn-lg mt-2" href="{% url 'accounts:register' %}">register &raquo;</a>
+    </div>
+</div>
+{% endblock page_header %}
