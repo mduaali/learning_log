@@ -60,3 +60,19 @@ Fix bugs
 License
 
 This project is open-source and available under the MIT License.
+
+----
+
+
+Screenshots
+
+Below are examples of the app’s interface:
+
+**Home Page**
+![Home Page](screenshots/homepage.png)
+
+**Topics Page**
+![Topics Page](screenshots/topics.png)
+
+**Entries Page**
+![Entries Page](screenshots/entries.png)
